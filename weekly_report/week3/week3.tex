@@ -1,0 +1,75 @@
+\documentclass{article}
+\usepackage{nips15submit_e,times}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{latexsym}
+
+\title{Weekly Report(March.11,2019-March.18,2019)}
+
+\newcommand{\fix}{\marginpar{FIX}}
+\newcommand{\new}{\marginpar{NEW}}
+
+
+\begin{document}
+
+\maketitle
+\begin{abstract}
+	This week I learned lecture5 and finished assignment2.
+\end{abstract}
+
+\section{Learned}
+\subsection{CNN}
+CNN is very different from DNN. Since it train its parameters with filter. It's used to train larger neural network. In my opinion, each filter is trained classify part of features such as a light of a car or a ear of a cat.
+
+It has two main layers, convolutional layer and pooling layer.
+
+\begin{center}
+	"conv-ReLu-conv-ReLu-pooling-conv-ReLu-conv-ReLu-pooling..."
+\end{center}
+
+\subsubsection{Convolutional layer}
+In the convolutional layer, we mainly train lots of filter consisting of parameters. Since each input data is 3-dimensional, each filter is also 3-dimensional, and they has the same thickness.
+
+\subsubsection{Pooling layer}
+There are two kinds of pooling policies, called maximum pooing and average pooling. Maximum pooling is better and much more used since it can reach our expectations of get the best activation between input and parameters. 
+
+Pool parameter: stride
+\subsubsection{BP}
+forward: 
+\begin{center}
+	${\displaystyle a^l = \delta(z^l) = \delta(a^{l-1}W^l+b^l)}$
+\end{center}
+backward:
+1
+
+2
+\begin{center}
+	${\displaystyle \frac{\partial J}{\partial z^{l-1}}=\frac{\partial J}{\partial z^l}*rot180(W^l)*\delta'(z^{l-1})}$
+\end{center}
+
+Example for ${\displaystyle rot180(W^l)}$:
+
+\begin{center}
+	
+\end{center}
+	
+${\displaystyle \delta'(z^{l-1})}$ is derivation of activation function.
+	
+3...
+\begin{center}
+	${\displaystyle z^l=a^{l-1}W^l+b^l}$
+	
+	${\displaystyle \frac{\partial J}{\partial W^l}=\frac{\partial J}{\partial z^l}\frac{\partial z^l}{\partial W^l}=a^{l-1}\frac{\partial J}{\partial z^l}}$
+	
+	${\displaystyle \frac{\partial J}{\partial b^l} = \sum_{u,v}(\frac{\partial J}{\partial z^l})_{u,v}}$
+\end{center}
+
+\section{Problem}
+During the process to finish ConvolutionalNetworks.pynb, I cann't do the command
+\textbf{"python setup.py build\_ext --inplace"}
+. I searched on the Internet and got to know that's because there's a file called vcvaesall.bat lost. And I need to download vs2015 to get that file and commpile all the files related. At last I got the result.
+
+\section{Plan}
+Keep going and finish assignment3.
+\end{document}

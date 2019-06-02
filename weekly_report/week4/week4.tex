@@ -5,7 +5,7 @@
 \usepackage{graphicx}
 \usepackage{latexsym}
 
-\title{Weekly Report(March.24,2019-March.31,2019)}
+\title{Weekly Report(March.19,2019-April.17,2019)}
 
 \newcommand{\fix}{\marginpar{FIX}}
 \newcommand{\new}{\marginpar{NEW}}
@@ -15,7 +15,7 @@
 
 \maketitle
 \begin{abstract}
-	This week I only learned RNN and LSTM since there are much homework this week.
+	During these weeks, I finished assignment3. I learned RNN, LSTM and some other interesting models. And I also modified the last part of Pytorch.ipnb in assignment2.
 \end{abstract}
 
 \section{Learned}
@@ -112,11 +112,23 @@ The implementation is the same as RNN, so I will still say nothing about it.
 	\caption{trained results} 
 \end{figure}
 
+\section{Modification}
+After finishing assignment3, I think back "open-ended challenge" in assignment2. Since it really attracted me and I think I can find a better model to get better grade.
+
+I try to modify the model for several trials, I finally get about 80\% accuracy. But I have some questions showed below.
+
+\begin{figure}[htbp]
+	\centering  %插入的图片居中表示
+	\includegraphics[width=0.8\textwidth]{9.png} 
+	\caption{open-ended challenge accuracy}  %图片的名称
+	\label{fig:f9}   %标签，用作引用
+\end{figure}
+
 \section{Understanding}
 RNN addresses sequential words in the homework. In order to predict next layer's state, it will use all of the previous state as input. It works very well. However, it has the problem of vanishing and exploding gradients. That's why LSTM exists. LSTM will forget part of previous hidden state, which makes the network work better. 
 
 \textbf{Question}: As training goes on, I come to confuse about the relation between an actual layer and its functions. For example, why adding convolutional layers in a CNN will get better performance? I know there must be some scientific basis, so how to use this basis if I want to improve a model?
 
 \section{Plan}
-Keep going.
+I need to focus on my professional courses.
 \end{document}

@@ -1,0 +1,141 @@
+\documentclass{article} % For LaTeX2e
+\usepackage{nips15submit_e,times}
+\usepackage{hyperref}
+\usepackage{url}
+%\documentstyle[nips14submit_09,times,art10]{article} % For LaTeX 2.09
+
+
+\title{Formatting Instructions for NIPS 2015}
+
+
+% The \author macro works with any number of authors. There are two commands
+% used to separate the names and addresses of multiple authors: \And and \AND.
+%
+% Using \And between authors leaves it to \LaTeX{} to determine where to break
+% the lines. Using \AND forces a linebreak at that point. So, if \LaTeX{}
+% puts 3 of 4 authors names on the first line, and the last on the second
+% line, try using \AND instead of \And before the third author name.
+
+\newcommand{\fix}{\marginpar{FIX}}
+\newcommand{\new}{\marginpar{NEW}}
+
+%\nipsfinalcopy % Uncomment for camera-ready version
+
+\begin{document}
+
+
+\maketitle
+
+\begin{abstract}
+This week I spend some time to build my environment on Linux.
+\end{abstract}
+
+\section{Works}
+Since the main memory of my computer is only 4G, it's really slow to run code on Linux, which is installed on HDD. So I used to run code in Windows. However, it's troublesome to configure some environment variables. So i decide to run code on Linux now. This week I just spend some time to install all the corresponding softwares and configur correctly. I also try to build a sample network from Alex Net. Although it wworks with many bugs.
+\begin{center}
+   \url{http:
+\end{center}
+
+
+
+\subsection{NVIDIA} 
+  用```lspci | grep -i nvidia``查看GPU版本信息
+\subsection{Anaconda3} 
+Download the Anaconda3 installation package which python version is 3.7 on the following website. Install it as requested.
+\begin{center}
+	\url{https://www.anaconda.com}
+\end{center}
+  7 因为我的terminal做了优化，用的是zsh，所以遇到```zsh: command not found: conda```的问题时，要在```~/.zshrc`
+  8 ```
+  9 export PATH="/home/rsp/anaconda3/bin:\$PATH
+ 10 ```
+ 11 然后
+ 12 ```
+ 13 source ~/.zshrc
+ 14 ```
+ 15 再次激活，就可以了。
+\subsection{PyTorch}
+\subsubsection{Missing dependencies for SOCKS support}
+ 18 在PyCharm安装python模块(不仅仅是安装模块)出现如下错误，终端使用pip3命令也是同样的错误。这是因为本地设置了s
+ 19 ```
+ 20 Could not install packages due to an EnvironmentError: Missing dependencies for SOCKS support.
+ 21 ```
+\subsubsection{Sulotion}
+ 26 1.安装pysocks模块，配合socks代理工具使用。
+
+ 28 Unset socks proxy
+
+ 30 unset all_proxy
+ 31 unset ALL_PROXY
+ 
+ 33 Install missing dependencies
+ 
+ 35 pip install pysocks
+ 
+ 37 Reset proxy
+ 
+ 39 source ~/.bashrc
+ 
+\subsection{Referenced website}
+https://blog.csdn.net/dcrmg/article/details/78146797\\
+https://blog.csdn.net/codechelle/article/details/77414117\\
+https://blog.tearth.me/python_installmodule/
+
+\subsection{virtualenv}
+  7 ```
+  8 pip install virtualenv
+  9 ```
+\subsubsection{virtualenv基本用法}
+ 11 然后，假定我们要开发一个新的项目，需要一套独立的Python运行环境，可以这么做：
+ 
+\subsubsection{新建项目文件夹}
+ 
+ 13 ```
+ 14 mkdir myproject
+ 15 cd myproject/
+ 16 ```
+
+\subsubsection{创建一个独立的Python运行环境，命名为venv}
+
+ 18 ```
+ 19 virtualenv --no-site-packages venv
+ 20 ```
+
+ 21 命令```virtualenv```就可以创建一个独立的Python运行环境
+
+ 23 参数```–no-site-packages```，已经安装到系统Python环境中的所有第三方包都不会复制过来，这样，我们就得到了一>
+ 24 参数 ```–system-site-packages```，虚拟环境会继承```/usr/lib/python2.7/site-packages```下的所有库。如果想依
+
+\subsubsection{激活虚拟环境}
+ 27 新建的Python环境被放到当前目录下的venv目录。有了venv这个Python环境，可以用```source```进入该环境：
+ 
+ 29 \$ source venv/bin/activate
+ 30 (venv)\$
+
+ 32 注意到命令提示符变了，有个(venv)前缀，表示当前环境是一个名为```venv```的Python环境。
+ 33 下面正常安装各种第三方包，并运行python命令：
+ 
+ 35 (venv)\$ pip install jinja2
+
+ 37 在venv环境下，用pip安装的包都被安装到venv这个环境下，系统Python环境不受任何影响。也就是说，venv环境是专门
+
+\subsubsection{shutdown virtual environment}
+ 40 退出当前的venv环境，使用deactivate命令：
+
+ 42 \$ deactivate
+
+ 44 此时就回到了正常的环境，现在pip或python均是在系统Python环境下执行。
+
+\subsubsection{指定python版本}
+ 47 可以使用```-p PYTHON_EXE```选项在创建虚拟环境的时候指定python版本
+
+ 48 ```zsh
+ 49 Mac:myproject johnson\$ virtualenv -p /usr/bin/python2.7 venv
+ 50 ```
+ 
+ 51 到此已经可以解决python版本冲突问题和python库不同版本的问题
+\subsubsection{Referenced website}
+ https://blog.csdn.net/John_xyz/article/details/80665320
+
+
+\end{document}

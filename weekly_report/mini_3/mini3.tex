@@ -1,0 +1,147 @@
+\documentclass{article} % For LaTeX2e
+\usepackage{nips15submit_e,times}
+\usepackage{hyperref}
+\usepackage{url}
+%\documentstyle[nips14submit_09,times,art10]{article} % For LaTeX 2.09
+
+\usepackage{listings}
+\usepackage{graphicx}
+\title{Weekly Report(July.15.2019-July.21.2019)}
+
+
+% The \author macro works with any number of authors. There are two commands
+% used to separate the names and addresses of multiple authors: \And and \AND.
+%
+% Using \And between authors leaves it to \LaTeX{} to determine where to break
+% the lines. Using \AND forces a linebreak at that point. So, if \LaTeX{}
+% puts 3 of 4 authors names on the first line, and the last on the second
+% line, try using \AND instead of \And before the third author name.
+
+\newcommand{\fix}{\marginpar{FIX}}
+\newcommand{\new}{\marginpar{NEW}}
+
+%\nipsfinalcopy % Uncomment for camera-ready version
+
+\begin{document}
+
+
+\maketitle
+
+\begin{abstract}
+This week I continue to learn VGG net.
+  
+\end{abstract}
+
+\section{Problems left last week}
+
+\begin{itemize}
+\item The accuracy got 80.19\% after 100 epochs when setting learning rate to be 0.01 and batch size to be 128.
+\item The smaller the learning rate, the worse the accuracy.
+\item Learning rate is actually the problem that causes the result not so good. But after several experiments, Adadelta still didn't get better performances than SGD.
+
+\begin{table}[h]
+\caption{batch\_size=128, optimizer=Adadelta}
+%\label{sample-table}
+\begin{center}
+\begin{tabular}{c|c}
+\multicolumn{1}{c}{\bf Learning Rate} &\multicolumn{1}{c}{\bf Accuracy}
+\\ \hline \\
+0.01 & 80.19\% \\
+0.003 & 75.47\% \\
+0.001 & 73.54\% \\
+0.0003 & 67.21\% \\
+0.0001 &  54.53\% \\
+\end{tabular}
+\end{center}
+\end{table}
+
+\end{itemize}
+
+\section{VGG}
+\begin{itemize}
+\item At the very beginning, I made a stupid mistake that I started to train the VGG model imported from pytorch but not pretrained. I forgot to add the parameter \textbf{pretrained=true}. Obviously it performs not good.
+
+\begin{table}[h]
+\caption{momentum=0.9, optimizer=SGD}
+%\label{sample-table}
+\begin{center}
+\begin{tabular}{c|c|c}
+\multicolumn{1}{c}{\bf Learning Rate}&\multicolumn{1}{c}{\bf Batch Size} &\multicolumn{1}{c}{\bf Accuracy}
+\\ \hline \\
+0.0003 & 8 & 91.10\% \\
+0.0003 & 16 & 90.26\% \\
+0.0003 & 32 & 89.34\% \\
+0.0001 & 8 & 90.19\% \\
+0.0001 & 16 & 87.79\% \\
+0.0001 & 32 & 82.30\% \\
+\end{tabular}
+\end{center}
+\end{table}
+
+\item Then I started to train the whole pretrained model with 2 epochs. The result are shown in table 2. It gives the best acuuracy of  91.10\%.
+
+\begin{itemize}
+\item The learning rate can't be too large like 0.01 otherwise loss will explode. 
+\end{itemize}
+
+
+\item I also tried to only train the fully connected layers and only train the last full connected layer. The results are shown in table 3 and table 4. They didn't perform so well than I thought.
+
+\begin{itemize}
+\item A possible reason is all my trainings are based on a pretrained model. When I train all layers in several epochs, it's more likely to perform to better in cifar10 dataset, which is smaller than ImageNet.
+\end{itemize}
+
+\begin{table}[h]
+\caption{momentum=0.9, epochs=2}
+%\label{sample-table}
+\begin{center}
+\begin{tabular}{c|c|c}
+\multicolumn{1}{c}{\bf Learning Rate}&\multicolumn{1}{c}{\bf Batch Size} &\multicolumn{1}{c}{\bf Accuracy}
+\\ \hline \\
+0.003 & 8 & 81.59\% \\
+0.003 & 16 & 84.02\% \\
+0.003 & 32 & 83.98\% \\
+0.001 & 8 & 85.05\% \\
+0.001 & 16 & 85.77\% \\
+0.001 & 32 & 85.43\% \\
+0.0003 & 8 & 85.73\% \\
+0.0003 & 16 & 85.80\% \\
+0.0003 & 32 & 84.28\% \\
+0.0001 & 8 & 85.05\% \\
+0.0001 & 16 & 82.84\% \\
+0.0001 & 32 & 79.96\% \\
+\end{tabular}
+\end{center}
+\end{table}
+
+
+\begin{table}[h]
+\caption{momentum=0.9, epochs=2}
+%\label{sample-table}
+\begin{center}
+\begin{tabular}{c|c|c}
+\multicolumn{1}{c}{\bf Learning Rate}&\multicolumn{1}{c}{\bf Batch Size} &\multicolumn{1}{c}{\bf Accuracy}
+\\ \hline \\
+0.003 & 8 & 81.16\% \\
+0.003 & 16 & 83.05\% \\
+0.003 & 32 & 82.98\% \\
+0.001 & 8 & 83.22\% \\
+0.001 & 16 & 83.36\% \\
+0.001 & 32 & 82.92\% \\
+0.0003 & 8 & 83.35\% \\
+0.0003 & 16 & 82.27\% \\
+0.0003 & 32 & 81.53\% \\
+0.0001 & 8 & 90.19\% \\
+0.0001 & 16 & 87.79\% \\
+0.0001 & 32 & 82.30\% \\
+\end{tabular}
+\end{center}
+\end{table}
+
+\end{itemize}
+
+\section{Plan}
+\begin{itemize}
+\item Fine tuning neural network needs more patience, I will start to use pre-trained ResNets to build model and fine tune the model with cifar10. Time is limited, I will do as more as possible.
+\end{itemize}
+\end{document}
